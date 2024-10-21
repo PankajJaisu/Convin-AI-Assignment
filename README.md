@@ -37,6 +37,16 @@ This backend application allows users to manage their daily expenses and split t
     ```
 
 
+## Test Cases
+
+To ensure the functionality of the application is working correctly, a set of unit and integration tests have been implemented.
+
+### Running Tests
+
+You can run the test cases by using the following command:
+   ```bash
+   python manage.py test
+   ```
 
 ### Postman API Documentation
 ```
@@ -46,7 +56,7 @@ https://documenter.getpostman.com/view/26432004/2sAXxY3oYP
 # Live Demo 
 
 ```
-https://vance-tech-assignment.onrender.com/swagger/
+https://convin-ai-assignment.onrender.com/
 ```
 ## Additional Information
 

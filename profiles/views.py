@@ -6,9 +6,15 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.http import HttpResponse
+
 from .models import Profile
 
 User = get_user_model()
+
+
+def home(request):
+    return HttpResponse("Please Check Postman Documention in Github README.md for more information")
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
