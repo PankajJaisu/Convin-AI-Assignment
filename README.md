@@ -43,6 +43,11 @@ This backend application allows users to manage their daily expenses and split t
 https://documenter.getpostman.com/view/26432004/2sAXxY3oYP
 ```
 
+# Live Demo 
+
+```
+https://vance-tech-assignment.onrender.com/swagger/
+```
 ## Additional Information
 
 The application supports the following expense splitting methods:
