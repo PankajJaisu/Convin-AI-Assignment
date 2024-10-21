@@ -177,7 +177,6 @@ class DownloadBalanceSheetView(APIView):
         file_name = f'balance_sheet_{user.id}.pdf'  # Unique filename for each user
         file_path = os.path.join(settings.MEDIA_ROOT, file_name)
 
-      
         buffer = BytesIO()
         p = canvas.Canvas(file_path)  
         
@@ -239,16 +238,23 @@ class DownloadBalanceSheetView(APIView):
         p.save()
 
         # Upload the PDF to Cloudinary
-        upload_response = cloudinary.uploader.upload(
-            file_path, 
-            resource_type="raw",  
-            folder="balance_sheets",  
-            public_id=f"balance_sheet_{user.id}",  
-            api_key=config('CLOUDNARY_API_KEY'),
-            api_secret=config('CLOUDNARY_API_SECRET'),
-            cloud_name=config('CLOUDNARY_CLOUD_NAME'),
-        )
+        try:
+            upload_response = cloudinary.uploader.upload(
+                file_path, 
+                resource_type="raw",  
+                folder="balance_sheets",  
+                public_id=f"balance_sheet_{user.id}",  
+                api_key=config('CLOUDNARY_API_KEY'),
+                api_secret=config('CLOUDNARY_API_SECRET'),
+                cloud_name=config('CLOUDNARY_CLOUD_NAME'),
+            )
 
-        file_url = upload_response.get("url")
+            file_url = upload_response.get("url")
 
-        return JsonResponse({'file_url': file_url}, status=status.HTTP_200_OK)
+            # Delete the local PDF file after upload
+            os.remove(file_path)
+
+            return JsonResponse({'file_url': file_url}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
